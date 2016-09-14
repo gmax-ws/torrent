@@ -20,12 +20,13 @@
  */
 package ws.gmax.rtsp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static ws.gmax.rtsp.RtspProtocol.RTSP_PROTOCOL;
 
@@ -37,7 +38,7 @@ import static ws.gmax.rtsp.RtspProtocol.RTSP_PROTOCOL;
 class RtspRequest {
 
     /* Logger */
-    private static final Logger LOGGER = Logger.getLogger(RtspRequest.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtspRequest.class);
 
     /* Request stream */
     private OutputStream out;
@@ -61,7 +62,7 @@ class RtspRequest {
     private void doRequest(String command) throws Exception {
         out.write(command.getBytes());
         out.flush();
-        LOGGER.log(Level.INFO, command);
+        LOGGER.info(command);
     }
 
     /**
@@ -76,13 +77,11 @@ class RtspRequest {
         req.append(" ").
                 append(RTSP_PROTOCOL).
                 append("\r\n");
-        // hdr.entrySet().stream().forEach((item) -> {
-        for (Map.Entry<String, String> item : hdr.entrySet()) {
+        hdr.entrySet().forEach(item ->
             req.append(item.getKey()).
                     append(": ").
                     append(item.getValue()).
-                    append("\r\n");
-        }
+                    append("\r\n"));
         req.append("\r\n");
         doRequest(req.toString());
     }
@@ -100,13 +99,11 @@ class RtspRequest {
         req.append(" ").
                 append(RTSP_PROTOCOL).
                 append("\r\n");
-        // hdr.entrySet().stream().forEach((item) -> {
-        for (Map.Entry<String, String> item : hdr.entrySet()) {
+        hdr.entrySet().forEach(item ->
             req.append(item.getKey()).
                     append(": ").
                     append(item.getValue()).
-                    append("\r\n");
-        }
+                    append("\r\n"));
         req.append("\r\n");
         req.append(body);
         doRequest(req.toString());

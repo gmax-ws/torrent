@@ -20,11 +20,12 @@
  */
 package ws.gmax.rtsp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ws.gmax.rtsp.auth.BasicAuth;
 import ws.gmax.rtsp.auth.DigestAuth;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * RTSP Authentication
@@ -34,7 +35,7 @@ import java.util.logging.Logger;
 class RtspAuth {
 
     /* Logger */
-    private static final Logger LOGGER = Logger.getLogger(RtspAuth.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtspAuth.class);
 
     /* Authentication header */
     private static final String WWW_AUTHENTICATE = "WWW-Authenticate";

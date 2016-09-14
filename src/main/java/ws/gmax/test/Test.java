@@ -20,6 +20,8 @@
  */
 package ws.gmax.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ws.gmax.rtsp.RtspSession;
 
 //    Jul 24, 2016 10:10:58 PM ws.gmax.rtsp.RtspRequest doRequest
@@ -86,7 +88,10 @@ import ws.gmax.rtsp.RtspSession;
  */
 public class Test {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
+
     public static void main(String[] args) throws Exception {
+        LOGGER.info("Starting...");
         RtpVideoPlayer videoPlayer = new RtpVideoPlayer("0.0.0.0", 9000);
         RtpAudioPlayer audioPlayer = new RtpAudioPlayer("0.0.0.0", 9002);
         RtspSession session = new RtspSession(videoPlayer, audioPlayer);

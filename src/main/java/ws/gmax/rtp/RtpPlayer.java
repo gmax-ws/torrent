@@ -20,8 +20,9 @@
  */
 package ws.gmax.rtp;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * An abstract class implementing an RTP (UDP) client.
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 public abstract class RtpPlayer extends Rtp implements Runnable {
 
     /* Logger */
-    private static final Logger LOGGER = Logger.getLogger(RtpPlayer.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtpPlayer.class);
 
     /* Exit run loop condition */
     private volatile boolean terminated = false;
@@ -72,7 +73,7 @@ public abstract class RtpPlayer extends Rtp implements Runnable {
                 receive();
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error("Error", ex);
         } finally {
             closeUdp();
         }

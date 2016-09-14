@@ -20,14 +20,14 @@
  */
 package ws.gmax.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ws.gmax.rtp.RtpDecoder;
 import ws.gmax.rtp.RtpPlayer;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * RtpVideoPlayer
@@ -37,7 +37,7 @@ import java.util.logging.Logger;
 class RtpVideoPlayer extends RtpPlayer {
 
     /* Logger */
-    private static final Logger LOGGER = Logger.getLogger(RtpVideoPlayer.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtpVideoPlayer.class);
 
     /* Storage */
     final private FileOutputStream out, hdr;
@@ -64,7 +64,7 @@ class RtpVideoPlayer extends RtpPlayer {
     @Override
     public void onReceiveData(byte[] packet, int len) {
         try {
-            LOGGER.log(Level.INFO, "video: {0}", len);
+            LOGGER.info("video: {}", len);
             RtpDecoder decoder = decode(packet, len);
             //
             out.write(decoder.payload);
@@ -73,7 +73,7 @@ class RtpVideoPlayer extends RtpPlayer {
             hdr.write(decoder.header);
             hdr.flush();
         } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.error("Error", ex);
         }
     }
 }

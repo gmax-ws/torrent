@@ -20,14 +20,15 @@
  */
 package ws.gmax.rtsp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +40,7 @@ import java.util.regex.Pattern;
 class RtspResponse {
 
     /* Logger */
-    private static final Logger LOGGER = Logger.getLogger(RtspResponse.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtspResponse.class);
 
     /* Max buffer size */
     private static final int MAX_SIZE = 8192;
@@ -47,7 +48,7 @@ class RtspResponse {
     /**
      * Structure to hold RTSP processed response.
      */
-    static class Response {
+    private static class Response {
 
         /* RTSP response code */
         int code;
@@ -98,7 +99,7 @@ class RtspResponse {
         response = new Response();
         int count = inp.read(buffer);
         String text = (count > 0) ? new String(buffer, 0, count) : null;
-        LOGGER.log(Level.INFO, text);
+        LOGGER.info(text);
         process(text);
         return response.code;
     }

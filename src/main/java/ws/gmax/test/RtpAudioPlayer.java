@@ -20,6 +20,8 @@
  */
 package ws.gmax.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ws.gmax.rtp.RtpPlayer;
 
 /**
@@ -28,6 +30,9 @@ import ws.gmax.rtp.RtpPlayer;
  * @author Marius
  */
 class RtpAudioPlayer extends RtpPlayer {
+
+    /* Logger */
+    private static final Logger LOGGER = LoggerFactory.getLogger(RtpAudioPlayer.class);
 
     /**
      * Constructor
@@ -47,6 +52,6 @@ class RtpAudioPlayer extends RtpPlayer {
      */
     @Override
     public void onReceiveData(byte[] buffer, int len) {
-        System.out.println("audio: " + len);
+        LOGGER.info("audio: {}", len);
     }
 }
