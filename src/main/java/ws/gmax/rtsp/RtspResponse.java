@@ -48,7 +48,7 @@ class RtspResponse {
     /**
      * Structure to hold RTSP processed response.
      */
-    private static class Response {
+    static class Response {
 
         /* RTSP response code */
         int code;
