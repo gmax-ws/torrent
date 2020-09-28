@@ -41,7 +41,7 @@ class RtspRequest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RtspRequest.class);
 
     /* Request stream */
-    private OutputStream out;
+    private final OutputStream out;
 
     /**
      * Construct a RTSP request.
@@ -77,11 +77,10 @@ class RtspRequest {
         req.append(" ").
                 append(RTSP_PROTOCOL).
                 append("\r\n");
-        hdr.entrySet().forEach(item ->
-            req.append(item.getKey()).
-                    append(": ").
-                    append(item.getValue()).
-                    append("\r\n"));
+        hdr.forEach((key, value) -> req.append(key).
+                append(": ").
+                append(value).
+                append("\r\n"));
         req.append("\r\n");
         doRequest(req.toString());
     }
@@ -99,11 +98,10 @@ class RtspRequest {
         req.append(" ").
                 append(RTSP_PROTOCOL).
                 append("\r\n");
-        hdr.entrySet().forEach(item ->
-            req.append(item.getKey()).
-                    append(": ").
-                    append(item.getValue()).
-                    append("\r\n"));
+        hdr.forEach((key, value) -> req.append(key).
+                append(": ").
+                append(value).
+                append("\r\n"));
         req.append("\r\n");
         req.append(body);
         doRequest(req.toString());

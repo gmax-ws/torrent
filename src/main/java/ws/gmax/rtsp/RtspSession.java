@@ -30,10 +30,10 @@ import ws.gmax.rtp.RtpPlayer;
 public class RtspSession extends RtspProtocol {
 
     /* Video player */
-    private RtpPlayer videoPlayer;
+    private final RtpPlayer videoPlayer;
 
     /* Audio player */
-    private RtpPlayer audioPlayer;
+    private final RtpPlayer audioPlayer;
 
     /* Server name or address */
     private String server;

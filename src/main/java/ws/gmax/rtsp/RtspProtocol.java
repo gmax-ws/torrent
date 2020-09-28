@@ -46,7 +46,7 @@ class RtspProtocol extends Rtsp {
     private String session;
 
     /* Sequence generator */
-    private RtspSequenceGenerator seq;
+    private final RtspSequenceGenerator seq;
 
     RtspProtocol() {
         sdp = new Sdp();

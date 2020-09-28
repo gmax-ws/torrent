@@ -30,9 +30,6 @@ import java.net.URISyntaxException;
  */
 class RtspURI {
 
-    /* Protocol should be always rtsp */
-    private static final String PROTOCOL = "rtsp";
-
     /* Host name or address */
     String host;
 
@@ -52,13 +49,12 @@ class RtspURI {
     RtspURI split(String rtspUri) throws URISyntaxException {
         URI uri = new URI(rtspUri);
 
-        if (PROTOCOL.equalsIgnoreCase(uri.getScheme())) {
+        if ("rtsp".equalsIgnoreCase(uri.getScheme())) {
             host = uri.getHost();
             port = uri.getPort();
             path = uri.getPath();
         } else {
-            throw new RuntimeException(String.format("Protocol MUST be %s",
-                    PROTOCOL));
+            throw new RuntimeException("Protocol MUST be rtsp");
         }
 
         return this;

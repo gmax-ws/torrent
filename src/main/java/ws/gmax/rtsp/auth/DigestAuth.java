@@ -20,6 +20,10 @@
  */
 package ws.gmax.rtsp.auth;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Digest Authentication encoder
  *
@@ -28,7 +32,7 @@ package ws.gmax.rtsp.auth;
 public class DigestAuth {
 
     private static String getToken(String text, String token) {
-        int beg = text.indexOf(token, 0);
+        int beg = text.indexOf(token);
         if (beg != -1) {
             beg += token.length();
             int end = text.indexOf("\"", beg);
@@ -39,18 +43,26 @@ public class DigestAuth {
         return null;
     }
 
-    static public String encode(String u, String p, String a, String uri, String m) {
+    public static String md5(String data) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(data.getBytes());
+        byte[] digest = md.digest();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
+    public static String encode(String u, String p, String a, String uri, String m) {
         String realm = getToken(a, "realm=\"");
         String nonce = getToken(a, "nonce=\"");
-        String a1 = new MD5(u + ":" + realm + ":" + p).asHex();
-        String a2 = new MD5(m + ":" + uri).asHex();
-        String hs = new MD5(a1 + ":" + nonce + ":" + a2).asHex();
+        try {
+            String a1 = md5(u + ":" + realm + ":" + p);
+            String a2 = md5(m + ":" + uri);
+            String hs = md5(a1 + ":" + nonce + ":" + a2);
 
-        return String.join("Digest username=\"", u,
-                "\", realm=\"", realm,
-                "\", nonce=\"", nonce,
-                "\", uri=\"", uri,
-                "\", response=\"", hs,
-                "\"");
+            String format = "Digest username=\"%s\", realm=\"%s\", nonce=\"%s\", uri=\"%s\", response=\"%s\"";
+            return String.format(format, u, realm, nonce, uri, hs);
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

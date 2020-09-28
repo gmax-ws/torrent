@@ -40,8 +40,8 @@ public class BasicAuth {
      * @return String the base64 encoded name:password
      */
     public static String encode(String name, String password) {
-        String token = name + ":" + password;
+        String token = String.format("%s:%s", name, password);
         byte[] token_bytes = token.getBytes(StandardCharsets.UTF_8);
-        return "Basic " + Base64.getEncoder().encodeToString(token_bytes);
+        return String.format("Basic %s", Base64.getEncoder().encodeToString(token_bytes));
     }
 }

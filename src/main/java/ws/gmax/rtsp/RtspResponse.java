@@ -71,10 +71,10 @@ class RtspResponse {
     }
 
     /* Stream buffer */
-    private byte[] buffer = new byte[MAX_SIZE];
+    private final byte[] buffer = new byte[MAX_SIZE];
 
     /* Response input stream */
-    private InputStream inp;
+    private final InputStream inp;
 
     /* Processed response */
     Response response;
