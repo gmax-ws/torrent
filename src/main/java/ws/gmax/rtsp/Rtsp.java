@@ -99,9 +99,8 @@ class Rtsp {
      * Check if connected.
      *
      * @return <code>true</code> if connected <code>false</code> if not
-     * @throws Exception on error
      */
-    public boolean isConnected() throws Exception {
+    public boolean isConnected() {
         return (socket != null) && socket.isConnected();
     }
 

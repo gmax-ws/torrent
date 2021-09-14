@@ -74,15 +74,7 @@ class RtspRequest {
      */
     void doRequest(StringBuilder req, Map<String, String> hdr)
             throws Exception {
-        req.append(" ").
-                append(RTSP_PROTOCOL).
-                append("\r\n");
-        hdr.forEach((key, value) -> req.append(key).
-                append(": ").
-                append(value).
-                append("\r\n"));
-        req.append("\r\n");
-        doRequest(req.toString());
+        doRequest(req, hdr, null);
     }
 
     /**
@@ -103,7 +95,8 @@ class RtspRequest {
                 append(value).
                 append("\r\n"));
         req.append("\r\n");
-        req.append(body);
+        if (body != null)
+            req.append(body);
         doRequest(req.toString());
     }
 }

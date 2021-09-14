@@ -1,6 +1,3 @@
 .idea/
 target/
-src/main/resources/
-src/test/
-rtsp-torrent.iml
-src/main/java/ws/gmax/rtp/AuthToken.java
+

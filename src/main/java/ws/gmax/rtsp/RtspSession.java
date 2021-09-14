@@ -35,9 +35,6 @@ public class RtspSession extends RtspProtocol {
     /* Audio player */
     private final RtpPlayer audioPlayer;
 
-    /* Server name or address */
-    private String server;
-
     /* Username and password if authentication is required */
     private String username, password;
 
@@ -123,7 +120,6 @@ public class RtspSession extends RtspProtocol {
      */
     private boolean play(String server, int port, String stream)
             throws Exception {
-        this.server = server;
         connect(server, port, stream);
         return playRtp();
     }
@@ -149,11 +145,7 @@ public class RtspSession extends RtspProtocol {
      */
     public boolean play(String uri) throws Exception {
         RtspURI url = new RtspURI().split(uri);
-        if (url.port == -1) {
-            return play(url.host, DEFAULT_RTSP_PORT, url.path);
-        } else {
-            return play(url.host, url.port, url.path);
-        }
+        return play(url.host, url.port == -1 ? DEFAULT_RTSP_PORT : url.port, url.path);
     }
 
     /**

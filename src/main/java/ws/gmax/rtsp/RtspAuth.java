@@ -50,7 +50,7 @@ class RtspAuth {
      * Build authentication token.
      *
      * @param headers  RTSP headers
-     * @param username User name
+     * @param username Username
      * @param password Password
      * @param uri      URI
      * @param method   RTSP method
