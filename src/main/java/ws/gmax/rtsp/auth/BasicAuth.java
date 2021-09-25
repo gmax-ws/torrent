@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * Encode user name and password for HTTP Basic authentication
+ * Encode username and password for HTTP Basic authentication
  */
 public class BasicAuth {
 
@@ -32,15 +32,15 @@ public class BasicAuth {
     }
 
     /**
-     * Encode a name/password pair appropriate to use in an HTTP header for
+     * Encode a username/password pair appropriate to use in an HTTP header for
      * Basic Authentication.
      *
-     * @param name     the user's name
+     * @param username     the user's username
      * @param password the user's password
-     * @return String the base64 encoded name:password
+     * @return String the base64 encoded username:password
      */
-    public static String encode(String name, String password) {
-        String token = String.format("%s:%s", name, password);
+    public static String encode(String username, String password) {
+        String token = String.format("%s:%s", username, password);
         byte[] token_bytes = token.getBytes(StandardCharsets.UTF_8);
         return String.format("Basic %s", Base64.getEncoder().encodeToString(token_bytes));
     }
