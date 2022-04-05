@@ -97,7 +97,7 @@ public class Test {
         RtspSession session = new RtspSession(videoPlayer, audioPlayer);
         session.setUsername("admin");
         session.setPassword("admin");
-        session.play("rtsp://cuesco.ipcctvdns.com/cam0_1");
+        session.play("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4");
         Thread.sleep(5000);
         session.stop();
     }
